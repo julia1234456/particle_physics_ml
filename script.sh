@@ -2,7 +2,7 @@
 
 PROJECT_DIR="particle_physics_ml"
 REPO_URL="https://github.com/julia1234456/particle_physics_ml"
-COMMIT_DATE="2023-12-10T9:56:00"
+COMMIT_DATE="2024-04-04T20:12:03"
 
 cd "$PROJECT_DIR"
 
@@ -12,7 +12,7 @@ git remote add origin "$REPO_URL"
 git add .
 GIT_AUTHOR_DATE="$COMMIT_DATE" \
 GIT_COMMITTER_DATE="$COMMIT_DATE" \
-git commit -m "Initial project setup"
+git commit -m "refactoring"
 
 
 # --- Add more files over "time" ---
