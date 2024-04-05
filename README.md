@@ -9,22 +9,22 @@ particle_physics_ml\
 ├──ml_jet\
     ├── main.py                 
     ├── CONSTANTS.py             
-    ├── run_pythia.py            # Pythia8 event generation and jet image extraction via PyROOT\
-    ├── visualisation.py                  # jet image visualisation (raw, normalized, averaged, variance)\
-    ├── train_and_inference.py    # prepocessing, model training and inference\
-    ├── analyze_model.py         # model performance analysis\
+    ├── run_pythia.py            (*Pythia8 event generation and jet image extraction via PyROOT*)\
+    ├── visualisation.py                  (*jet image visualisation (raw, normalized, averaged, variance)*)\
+    ├── train_and_inference.py    (*prepocessing, model training and inference*)\
+    ├── analyze_model.py         (*model performance analysis*)\
     └── utils.py \  
         
 
 # Dependencies 
 
-[Pythia8]  #Monte-Carlo event generator
-[ROOT]/[PyROOT]** #CERN's data analysis framework
-[NumPy] 
-[TensorFlow] 
-[Keras]
-[Matplotlib]
-[scikit-learn]
+- ![Pythia8]  #Monte-Carlo event generator
+- ![ROOT]/[PyROOT]** #CERN's data analysis framework
+- ![NumPy] 
+- ![TensorFlow] 
+- ![Keras]
+- ![Matplotlib]
+- ![scikit-learn]
 
 # Acknowledgment 
 The machine learning part is based on the work done by Angelo Monteux. 
