@@ -7,7 +7,7 @@ The objective of this project is to use computer vision approach to distinguish 
 
 ├──ml_jet
 >    ├─ main.py                 
->    ├─ CONSTANTS.py             
+>    ├─ constants.py             
 >    ├─ run_pythia.py  - (*Pythia8 event generation and jet image extraction via PyROOT*)\
 >    ├─ visualisation.py - (*jet image visualisation (raw, normalized, averaged, variance)*)\
 >    ├─ train_and_inference.py - (*prepocessing, model training and inference*)\
