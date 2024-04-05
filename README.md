@@ -2,7 +2,7 @@
 
 The objective of this project is to use computer vision approach to distinguish between different particle jet images types using Monte Carlo simulations from Pythia8 and ROOT/PyROOT and real data from the Atlas experiment. In particular we apply this framework to distinguish ttbar event (signal) from jj event (noise).
 
-# Repository structure 
+## Repository structure 
 
 
 particle_physics_ml\
@@ -16,15 +16,15 @@ particle_physics_ml\
     └── utils.py \  
         
 
-# Dependencies 
+## Dependencies 
 
-- ![Pythia8]  #Monte-Carlo event generator
-- ![ROOT]/[PyROOT]** #CERN's data analysis framework
-- ![NumPy] 
-- ![TensorFlow] 
-- ![Keras]
-- ![Matplotlib]
-- ![scikit-learn]
+- Pythia8  (*Monte-Carlo event generator*)
+- ROOT/PyROOT (*CERN's data analysis framework*)
+- NumPy 
+- TensorFlow 
+- Keras
+- Matplotlib
+- scikit-learn
 
-# Acknowledgment 
+## Acknowledgment 
 The machine learning part is based on the work done by Angelo Monteux. 
