@@ -36,7 +36,55 @@ def create_histo(hists, samples, outpath, Normalize):
                 histo.Scale(scale)
         
             h[sample][hist] = histo.Clone()
-            h[sample][hist].SetDirectory(0)       
+            h[sample][hist].SetDirectory(0) 
+
+    # Create merge histograms
+    for hist in hists.keys() :
+        hs = ROOT.THStack("hs","hs")
+        hist_param = hists.get(hist)
+        gStyle.SetPalette(kBird)
+        canvas =  ROOT.TCanvas('c', 'c', 800, 800)
+        
+        # Tex in canvas
+        tex = ROOT.TLatex(0.2, 0.9, "#sqrt{s} = 250 GeV, L = 250 fb^{-1}")
+        tex.SetName('tex')
+        tex.SetNDC(True)
+        tex.SetTextSize(0.025)
+        tex.SetTextColor(kRed)
+
+        # Set maximum Y_axis
+        max_global = 0
+        for sample in samples.keys():
+            max_hist = h[sample][hist].GetMaximum()
+            max_global = max_global if max_global > max_hist else max_hist
+        
+     
+        # Adjust label and title for x and y axis
+        hs.GetXaxis().SetTitle(hist_param[3])
+        hs.GetXaxis().SetTitleSize(0.035)  
+        hs.GetXaxis().SetLabelSize(0.03)
+        if Normalize == True:
+            hs.GetYaxis().SetTitle('1 / Events') 
+        else : 
+            hs.GetYaxis().SetTitle('Events')
+        hs.GetYaxis().SetTitleSize(0.035)  
+        hs.GetYaxis().SetLabelSize(0.03)
+        hs.GetYaxis().SetTitleOffset(1.90)
+        
+        # Draw Legend
+        legend = ROOT.TLegend(0.75, 0.75, 0.90, 0.90) 
+        legend.SetFillColor(0)
+        legend.SetFillStyle(0)
+        legend.SetTextSize(0.03) 
+        legend.SetShadowColor(0)  
+        for sample in samples.keys():
+            legend.AddEntry(h[sample][hist], sample, 'f')
+        legend.Draw("SAME")
+
+        if Normalize == True:
+            canvas.SaveAs( cwd + outpath + '%s_normalize.png' % (hist) )
+        else : 
+            canvas.SaveAs( cwd + outpath +'%s.png' % (hist) )      
         
      
 
