@@ -57,6 +57,13 @@ def create_histo(hists, samples, outpath, Normalize):
         for sample in samples.keys():
             max_hist = h[sample][hist].GetMaximum()
             max_global = max_global if max_global > max_hist else max_hist
+
+        # Draw diagrams
+        for sample in samples.keys():
+            h[sample][hist].SetMaximum(max_global)   
+            hs.Add(h[sample][hist])
+        hs.SetMaximum(max_global * 4)
+        hs.Draw('HISTpfc')
         
      
         # Adjust label and title for x and y axis
