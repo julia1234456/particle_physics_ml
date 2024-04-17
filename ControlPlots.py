@@ -14,6 +14,16 @@ from ROOT import *
 
 
 def create_histo(hists, samples, outpath, Normalize):
+    """
+    Create merge histograms to compare the signal distribution 
+    to different background distributions for different parameters.
+
+    hists: List of parameters.
+    samples : List of signal and background root files
+    outpath : Path to the folder storing the output histograms.
+    Normalize : if True, create a normalized graph. 
+
+    """
 
     h = {sample: {hist: None for hist in hists.keys()} for sample in samples.keys()}
 
