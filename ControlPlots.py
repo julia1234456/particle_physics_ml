@@ -101,7 +101,48 @@ def create_histo(hists, samples, outpath, Normalize):
         if Normalize == True:
             canvas.SaveAs( cwd + outpath + '%s_normalize.png' % (hist) )
         else : 
-            canvas.SaveAs( cwd + outpath +'%s.png' % (hist) )      
+            canvas.SaveAs( cwd + outpath +'%s.png' % (hist) )  
+
+
+if __name__ == "__main__":
+
+    # Modify basepath and outpath according to your environment.
+    basepath = '/home/julia/TMVA/'
+    outpath = '/plotsCompare/Compare/'
+    treename = 'coupl'
+
+    # List of parameters in root files for which we want to draw the distribution. 
+
+    hists = {
+        'n_Jets': [10, 0, 8, 'Jet multiplicity'],
+        'bb_Mass': [50, 0, 220, 'M_{bb} [GeV]'],
+        'bbmiss_Mass': [50, 30, 300, 'M_{bbE^{miss}_{T}} [GeV]'],
+        'bb_pT': [50, 0, 160, 'p_{T}^{bb} [GeV]'],
+        'bb_Et': [50, 0, 220, 'E_{T}^{bb} [GeV]'],
+        'bb_dR': [50, 0, 5, '#Delta R_{bb}' ],
+        'RatioJet1': [50, 0, 2.5, 'RatioJet1'],
+        'RatioJet2': [50, 0, 2.5, 'RatioJet2'],
+        'met_Met': [50, 0, 120, 'E^{miss}_{T} [GeV]'],
+        'leadpT_Jet_Eta': [50, -2.5, -2.5, '#eta_{b1}'],
+        'subleadpT_Jet_Eta': [50, -2.5, -2.5, '#eta_{b2}'],
+        'leadpT_Jet': [50, 0, 120, 'p_{T}^{b1} [GeV]'],
+        'subleadpT_Jet': [50, 0, 80, 'p_{T}^{b2} [GeV]'],
+        'BDT_response': [50, -0.4, 0.4,'BDT score' ],
+        'BDTG_response': [50, -1, 1.2, 'BDTG score']
+    }
+    
+
+
+    # List of root files for signal and background samples.
+    samples = {
+        'sgn': basepath + '2b2vl_sgn_BDT.root',    
+        'bbjj': basepath + 'bbjj_bkg_BDT.root',
+        'zz': basepath + 'zz_bkg_BDT.root',
+        'ww': basepath + 'ww_bkg_BDT.root'
+    }
+    
+    # Create merge histograms comparing signal distribution to different background distribution.
+    create_histo(hists, samples,outpath, True)
         
      
 
