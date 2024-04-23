@@ -15,6 +15,13 @@ ROOT.SetAtlasStyle()
 
 
 def create_hist_ratio(samples, hists, tree_sgn, treename, outfile_path):
+    """
+    Create the ratio graph between the signal and different background for several parameters. 
+        samples : List of background files.
+        hists : List of parameters in the signal/background files (such that the mass, the pT..etc) for which we want to draw the ratio graph.
+        tree_sgn: Signal tree. 
+        treename: Name of the tree in background file (usually same every backgroud and signal). 
+    """
     for sample in samples.keys(): 
         if sample != 'sgn':
             for hist in hists.keys():
@@ -98,6 +105,9 @@ def normalize(tree, histo):
     histo.Scale(scale)
 
 def set_maximum(histo_sgn, histo_bkg): 
+    """
+    Set a maximum such that the entire curve is displayed on the histogram.
+    """
     max_sgn = histo_sgn.GetMaximum()
     max_bkg = histo_bkg.GetMaximum()
     global_max = max_sgn if max_sgn > max_bkg else max_bkg
