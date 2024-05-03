@@ -33,6 +33,19 @@ def create_histo( hists, samples, treename, cut):
             tree.Draw('%s>>%s' % (hist, hist_name),cut, 'goff')
             h[sample][hist] = histo.Clone()
             h[sample][hist].SetDirectory(0) 
+    
+    # Create the merged histogram (addition all backgrounds)
+    assert(len(h) > 1)
+    h['merge']  = { hist : None for hist in hists.keys()}
+    for hist in hists.keys():
+        hist_param = hists.get(hist)
+        hm = ROOT.TH1F('merge', 'merge', hist_param[0], hist_param[1], hist_param[2])
+        for sample in samples.keys():
+            if sample != 'sgn':
+                hm.Add(h[sample][hist], 1)
+        h['merge'][hist] = hm.Clone() 
+        h['merge'][hist].SetDirectory(0)
+        del hm
 
    
             
