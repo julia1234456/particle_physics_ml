@@ -46,10 +46,42 @@ def create_histo( hists, samples, treename, cut):
         h['merge'][hist] = hm.Clone() 
         h['merge'][hist].SetDirectory(0)
         del hm
-
-   
-            
     return h 
+
+def write_csv_significance(outfile_path, xMin, xMax, shape, step, h, label):
+    minSel = np.empty(shape)
+    rangeSel = np.arange(xMin, xMax, step)
+    ind = np.arange(len(minSel))  
+    np.put(minSel, ind, rangeSel)
+
+    f = open(outfile_path, 'w+')
+
+    with f:
+        writer = csv.writer(f)
+        writer.writerow(['BDTscore', 'Nbkg', 'Nsgn', 'Sign'])
+    
+        for xmin in minSel:
+        
+            axis = h['sgn'][label].GetXaxis()
+            binmin = axis.FindBin(xmin)
+            binmax = axis.FindBin(xMax)
+            yield_sample = {}
+            for hist in h.keys() :
+                yield_sample[hist] = h[hist][label].Integral(binmin, binmax)
+                
+            Nbkg = yield_sample['merge']
+            Nsgn = yield_sample['sgn']
+
+            if (Nbkg > 0):
+                Sig_G = Nsgn / math.sqrt(Nbkg)
+                Sig_P  = math.sqrt( 2*( (Nsgn+Nbkg)*math.log(1+Nsgn/Nbkg)-Nsgn ) )
+            else:
+                Sig_G = 0
+                Sig_P = 0
+            print ('BDT: %.4f; Total bkg events: %.5f; Total sgn events: %.5f; Significance_P: %.5f; Significance_P: %.5f'% (xmin, Nbkg, Nsgn, Sig_G, Sig_P))
+            writer.writerow(['%.3f' % xmin, '%.8f' % Nbkg, '%.8f' % Nsgn, '%.8f' %Sig_P] )
+        
+    f.close()
       
 
 
