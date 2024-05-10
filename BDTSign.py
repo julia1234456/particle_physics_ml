@@ -86,5 +86,47 @@ def write_csv_significance(outfile_path, xMin, xMax, shape, step, h, label):
 
 
 
+def drawSign(filecsv_path, label):
+
+
+    columns = defaultdict(list)
+
+    mpl_logger = logging.getLogger("matplotlib")
+    mpl_logger.setLevel(logging.WARNING)
+
+    df = pd.read_csv(filecsv_path)
+
+    # Data from csv file
+    BDT_response = df['BDTscore']
+    N_bkg = df['Nbkg']
+    Significance = df['Sign']
+
+    fig, ax1 = plt.subplots()
+
+    color = 'tab:red'
+    ax1.set_xlabel(label)
+    ax1.set_ylabel('Bkg yield', color=color)
+    ax1.plot(BDT_response.values, N_bkg.values, linestyle=':', linewidth=2, color=color)
+    ax1.tick_params(axis='y', labelcolor=color)
+    ax1.xaxis.set_label_coords(1., -0.08)
+    ax1.yaxis.set_label_coords(-0.10, 0.85)
+
+    plt.yscale('log')
+
+    ax2 = ax1.twinx()
+
+    color = 'tab:blue'
+    ax2.set_ylabel('Significance', color=color)
+    ax2.plot(BDT_response.values, Significance.values, linestyle='--', linewidth=2, color=color)  # Convert to numpy arrays
+    ax2.tick_params(axis='y', labelcolor=color)
+    ax2.yaxis.set_label_coords(1.08, 0.85)
+
+    plt.yscale('log')
+
+    mpl.rcParams['font.size'] = 16
+    mpl.rcParams['text.usetex'] = True
+
+    plt.savefig('plots/BDTSign.png')
+    plt.close()
 
   
