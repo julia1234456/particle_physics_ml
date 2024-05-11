@@ -14,6 +14,15 @@ columns = defaultdict(list)
 ROOT.gROOT.SetBatch(True)
 
 def create_histo( hists, samples, treename, cut):
+    """
+    Create histogram comparing the signal distribution to the addition of all background distributions 
+    for different parameters.
+
+    hists : List of parameters for which we want to create an histogram. 
+    samples : List of root files for signal and background samples.
+    treename : Name of the tree in root file. (usually same for background and signal samples).
+    cut : Cut to apply when drawing the histogram. 
+    """
 
     h = {sample: {hist: None for hist in hists.keys()} for sample in samples.keys()}
 
@@ -49,6 +58,14 @@ def create_histo( hists, samples, treename, cut):
     return h 
 
 def write_csv_significance(outfile_path, xMin, xMax, shape, step, h, label):
+    """
+    Compute and fill a csv file with the labelvalues , the number of events for signal sample (Nsgn),
+    the number of events for (merged) background sample (Nbkg) and significance. 
+
+    outfile_path : the path to the output csv file
+    h : Table containing the signal, background and merged background histograms. 
+    label : Label (=parameter) for which we want to compute the csv file. 
+    """
     minSel = np.empty(shape)
     rangeSel = np.arange(xMin, xMax, step)
     ind = np.arange(len(minSel))  
@@ -87,8 +104,9 @@ def write_csv_significance(outfile_path, xMin, xMax, shape, step, h, label):
 
 
 def drawSign(filecsv_path, label):
-
-
+    """
+    Draw the significance histogram fro the given label.
+    """
     columns = defaultdict(list)
 
     mpl_logger = logging.getLogger("matplotlib")
