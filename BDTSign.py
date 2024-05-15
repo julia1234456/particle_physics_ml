@@ -148,3 +148,28 @@ def drawSign(filecsv_path, label):
     plt.close()
 
   
+
+if __name__ == "__main__":
+
+    # Modify basepath and outfile_BDTSign according to your environment.
+    basepath = '/home/julia/TMVA/'
+    outfile_BDTSign = 'Output/BDT_Sign.csv'
+
+    cut = '1000*500*weight'
+    treename = 'coupl'
+
+    # List of parameters for which we want to create an histogram.
+    hists = {'BDT_response' : [100, -0.5, 0.5]}
+
+
+    # NB : The key for the signal sample must be named 'sgn'. 
+    samples = {
+        'sgn': basepath + '2b2vl_sgn_BDT.root',
+        'bbjj': basepath + 'bbjj_bkg_BDT.root',
+        'zz': basepath + 'zz_bkg_BDT.root',
+        'ww': basepath + 'ww_bkg_BDT.root',
+    }
+
+    h =  create_histo(hists, samples, treename, cut)
+    write_csv_significance(outfile_BDTSign, -0.5, 0.5, 200, 0.005, h, 'BDT_response')
+    drawSign(outfile_BDTSign, 'BDT_response')
